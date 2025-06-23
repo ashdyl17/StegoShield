@@ -1,56 +1,57 @@
-# 🛡️ StegoShield
+# 🛡️ StegoShield - Web-based Image Steganography App
 
-**StegoShield** is a Python-based desktop application that hides secret text messages inside images using a combination of XOR encryption and Least Significant Bit (LSB) steganography. Built with an interactive GUI using Tkinter, it provides an easy-to-use, secure, and stealthy way to transmit confidential information.
+**StegoShield** is a modern and interactive web application that allows users to hide and retrieve secret messages inside images using **XOR encryption** combined with **LSB (Least Significant Bit) steganography**. Built using **Streamlit**, the app runs in your browser with a clean, responsive UI.
 
 ---
 
 ## 🚀 Features
 
-- 🔐 **Dual-layer security** using XOR encryption and LSB encoding
-- 🖼️ Supports JPG and PNG image formats
-- 🧠 No visible distortion to the original image
-- 💬 Simple GUI to encode/decode messages without coding
-- ⚙️ Fully offline — no internet required to use
-- 💾 Saves the output as a new image without overwriting original
-- 🧪 Lightweight and cross-platform compatible
+- 🔒 Encrypts messages with a custom key using XOR cipher
+- 🖼️ Embeds hidden data directly into the pixels of an image
+- 👁️ No visible distortion in the image after encoding
+- 📥 Simple drag-and-drop image upload
+- 🌐 Runs in the browser using Streamlit — no installation needed
+- 🔓 Decode any stego image using the original key
+- 🧠 Automatically detects the length of the hidden message
+- 💾 One-click download of the stego image after encoding
+- 🎨 Apple-inspired modern UI styling with custom CSS
 
 ---
 
-## ❗ Problem Statement
+## 🎯 Problem Statement
 
-- Digital communication requires protection of sensitive data from unauthorized access.
-- Encryption alone may draw attention and can be detected during transmission.
-- Users lack an easy-to-use tool that allows messages to be hidden in images without visible change.
-- Existing methods are complex or require programming knowledge.
-- There's a need for a discrete and reversible technique for secure information hiding in images.
-
----
-
-## 🎯 Objective
-
-To develop a user-friendly, secure, and efficient image-based steganography system that enables users to conceal and retrieve confidential messages without affecting the visual quality of the image.
+1. Insecure transmission of sensitive data is a growing risk in today's digital world.
+2. Traditional encryption methods may raise suspicion due to clearly protected formats.
+3. There is a lack of tools that combine encryption with visual secrecy (steganography).
+4. Users need a simple, user-friendly platform to embed and retrieve data without technical expertise.
+5. Existing CLI or desktop apps can be inaccessible to non-programmers or casual users.
 
 ---
 
-## 🧰 System Requirements
+## 📌 Objective
 
-- **OS**: Windows, macOS, or Linux  
-- **Python**: Version 3.7 or higher  
-- **RAM**: Minimum 4 GB  
-- **Dependencies**:
-  - `opencv-python`
-  - `numpy`
-  - `Pillow`
-  - (Tkinter comes preinstalled with Python)
+To build a secure, accessible, and aesthetically pleasing web application that enables users to secretly hide messages within images using encryption and steganographic techniques.
+
+---
+
+## 🧰 Tech Stack
+
+| Component    | Technology      |
+|--------------|-----------------|
+| Frontend     | Streamlit (Python) |
+| Image Processing | OpenCV, NumPy, PIL |
+| Encryption   | XOR Cipher       |
+| Steganography | LSB (Least Significant Bit) |
 
 ---
 
 ## 📦 Installation
 
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/StegoShield.git
-cd StegoShield
+### 🔧 Prerequisites:
+- Python 3.7+
+- pip (Python package installer)
 
-# Install dependencies
-pip install opencv-python numpy pillow
+### 📥 Install Required Libraries:
+
+```bash
+pip install streamlit opencv-python pillow numpy
