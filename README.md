@@ -14,7 +14,6 @@
 - 🔓 Decode any stego image using the original key
 - 🧠 Automatically detects the length of the hidden message
 - 💾 One-click download of the stego image after encoding
-- 🎨 Apple-inspired modern UI styling with custom CSS
 
 ---
 
@@ -55,3 +54,5 @@ To build a secure, accessible, and aesthetically pleasing web application that e
 
 ```bash
 pip install streamlit opencv-python pillow numpy
+
+streamlit run app.py
