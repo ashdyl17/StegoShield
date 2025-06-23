@@ -1,4 +1,4 @@
-# 🛡️ StegoShield - Web-based Image Steganography App
+# 🛡️ StegoShield - Image Steganography App
 
 **StegoShield** is a modern and interactive web application that allows users to hide and retrieve secret messages inside images using **XOR encryption** combined with **LSB (Least Significant Bit) steganography**. Built using **Streamlit**, the app runs in your browser with a clean, responsive UI.
 
@@ -54,5 +54,8 @@ To build a secure, accessible, and aesthetically pleasing web application that e
 
 ```bash
 pip install streamlit opencv-python pillow numpy
+```
 
+### To run
+```bash
 streamlit run app.py
