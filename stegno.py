@@ -38,7 +38,7 @@ def fetch_bits(img, count):
     return [int(''.join(bits[i:i+8]), 2) for i in range(0, needed, 8)]
 
 st.set_page_config(page_title="Steganography App", layout="centered")
-st.title("🕵️‍♂️ Steganography App")
+st.title("🕵️‍♂️ StegoShield")
 st.markdown("Hide secret text messages inside images")
 
 st.info("""
