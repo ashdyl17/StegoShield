@@ -37,20 +37,25 @@ def fetch_bits(img, count):
     bits = [str(flat[i] & 1) for i in range(needed)]
     return [int(''.join(bits[i:i+8]), 2) for i in range(0, needed, 8)]
 
+
 st.set_page_config(page_title="Steganography App", layout="centered")
 st.title("🕵️‍♂️ StegoShield")
-st.markdown("Hide secret text messages inside images")
-
-st.info("""
-**About the Project:**  
-This app allows you to securely hide (encode) and retrieve (decode) secret messages within images using steganography techniques. 
-Developed by Ashley Dylan.
+with st.expander("🧭 Instructions"):
+    st.markdown("""
+1. **Upload an Image**: Choose a `.png` or `.jpg` image where the message will be hidden.  
+2. **Select Mode**: Click on either **Encode** or **Decode**.  
+3. **For Encoding**:
+   - Type your secret message in the box.
+   - Enter a key to lock the message (only those with the key can unlock it).
+   - Click the encode button to download the stego image.  
+4. **For Decoding**:
+   - Enter the key used during encoding.
+   - Click to reveal the hidden message.
 """)
-
 st.markdown("""
     <style>
     html, body, [class*="css"]  {
-        font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', sans-serif;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
         background-color: #f8f8f8;
         color: #f5f5f7 !important;
     }
@@ -63,33 +68,34 @@ st.markdown("""
         color: #f5f5f7 !important;
     }
     .stButton > button {
-        background: linear-gradient(145deg, #007aff, #0051a8);
+        background: linear-gradient(to bottom, #007aff, #0051a8);
         color: white !important;
-        border-radius: 8px;
-        padding: 0.5rem 1.25rem;
-        font-weight: 600;
         border: none;
-        transition: all 0.3s ease;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background 0.3s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
     }
+
     .stButton > button:hover {
-        background: linear-gradient(145deg, #0051a8, #007aff);
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .stRadio > div {
-        background-color: #2c2c2e !important;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-        color: white !important;
-    }
-    .stRadio > div > label {
-        color: white !important;
+        background: linear-gradient(to bottom, #0051a8, #007aff);
+        box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+        transform: scale(1.01);
     }
     .stDownloadButton > button {
         border-radius: 8px;
         background-color: #34c759;
         color: white;
         font-weight: bold;
+    }
+    /* Force white text for radio labels */
+    @media (prefers-color-scheme: light) {
+        [data-baseweb="radio"] label span {
+            color: black !important;
+            background-color: #e6e6e6 !important;
+        }
     }
     </style>
 """, unsafe_allow_html=True)
@@ -101,11 +107,23 @@ if uploaded_file:
     image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     st.image(image[:, :, ::-1], caption="Uploaded Image", use_container_width=True)
 
-    action = st.radio("Choose Action", ["Encode", "Decode"])
+    if "mode" not in st.session_state:
+        st.session_state.mode = "Encode"
+
+    if st.button("Encode", key="enc_btn"):
+        st.session_state.mode = "Encode"
+    if st.button("Decode", key="dec_btn"):
+        st.session_state.mode = "Decode"
+
+    action = st.session_state.mode
 
     if action == "Encode":
         secret = st.text_area("Enter the message to hide")
         key = st.text_input("Key (for locking/unlocking)", type="password")
+        max_capacity = image.size // 8
+        if secret and len(secret) > max_capacity:
+            st.error(f"Message too long! This image can hold only about {max_capacity} characters.")
+            st.stop()
         if st.button("🔒 Encode and Download Stego Image"):
             try:
                 data = [len(secret)] + lock(secret, key)
@@ -128,4 +146,4 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"❌ Error: {e}")
 
-st.markdown("""<hr><p style='text-align:center'>© 2025 Ashley Dylan. All rights reserved.</p>""", unsafe_allow_html=True)
+st.markdown("""<hr><p style='text-align:center'>© 2025 Ashley Dylan.</p>""", unsafe_allow_html=True)
